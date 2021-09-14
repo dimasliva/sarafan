@@ -105,8 +105,8 @@ var myModel = {
 };
 var app = new Vue({
     el: '#aplication',
-    template: '<messages-list :messages="messages" />' +
-    '<div>dasoidjasiodj</div>',
+    template:
+    '<div>' + '<p>{{myModel.name}}</p> ' + '<messages-list :messages="messages" />' + '</div>',
     data: {
         messages: [],
         myModel
