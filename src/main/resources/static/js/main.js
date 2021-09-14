@@ -1,3 +1,4 @@
+
 function getIndex(list, id) {
     for (var i = 0; i < list.length; i++ ) {
         if (list[i].id === id) {
@@ -98,12 +99,17 @@ Vue.component('messages-list', {
         }
     }
 });
-
+var myModel = {
+    name: "Ashley",
+    age: 24
+};
 var app = new Vue({
-    el: '#app',
-    template: '<messages-list :messages="messages" />',
+    el: '#aplication',
+    template: '<messages-list :messages="messages" />' +
+    '<div>dasoidjasiodj</div>',
     data: {
-        messages: []
+        messages: [],
+        myModel
     },
     created: function() {
         messageApi.get().then(result =>
@@ -111,5 +117,5 @@ var app = new Vue({
                 data.forEach(message => this.messages.push(message))
             )
         )
-    }
+    },
 });
