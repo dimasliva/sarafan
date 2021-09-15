@@ -99,17 +99,19 @@ Vue.component('messages-list', {
         }
     }
 });
-var myModel = {
-    name: "Ashley",
-    age: 24
-};
 var app = new Vue({
-    el: '#aplication',
+    el: '#app',
     template:
-    '<div>' + '<p>{{myModel.name}}</p> ' + '<messages-list :messages="messages" />' + '</div>',
+    '<div>' +
+        '<div v-if="!profile">Необходибо авторизоваться: <a href="/login">Google</a></div>' +
+            '<div v-else>' +
+                '<messages-list :messages="messages" />' +
+                '<div>{{profile.name}}<a href="/logout">&nbsp;Выйти</a></div>' +
+        '</div>'+
+        '</div>',
     data: {
-        messages: [],
-        myModel
+        messages: frontendData.messages,
+        profile: frontendData.profile
     },
     created: function() {
         messageApi.get().then(result =>
