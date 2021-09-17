@@ -1,5 +1,7 @@
 package sarafan.sarafan.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +17,15 @@ import java.util.HashMap;
 public class MainController {
     final MessageRepo messageRepo;
 
+
+    @Value("${spring.profiles.active}")
+    private String profile;
+
+    @Autowired
     public MainController(MessageRepo messageRepo) {
         this.messageRepo = messageRepo;
     }
+
     @GetMapping
     public String main(Model model, @AuthenticationPrincipal User user) {
 
@@ -27,6 +35,7 @@ public class MainController {
         data.put("messages", messageRepo.findAll());
 
         model.addAttribute("frontendData", data);
+        model.addAttribute("isDevMode", "dev".equals((profile)));
 
         return "index";
     }
