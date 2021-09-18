@@ -1,6 +1,8 @@
 package sarafan.sarafan.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import sarafan.sarafan.domain.Message;
 import sarafan.sarafan.domain.Views;
 import sarafan.sarafan.repo.MessageRepo;
@@ -52,5 +54,11 @@ public class MessageController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Message message) {
         messageRepo.delete(message);
+    }
+
+    @MessageMapping("/changeMessage")
+    @SendTo("/topic/activity")
+    public Message change(Message message) {
+        return messageRepo.save(message);
     }
 }
